@@ -20,7 +20,7 @@ spec:
       any:
       - resources:
           kinds:
-          - aws.platformref.upbound.io/v1alpha1/Cluster
+          - ClusterClaim
     validate:
       message: >-
         You cannot create a cluster with node size large
@@ -28,6 +28,6 @@ spec:
       deny:
         conditions:
           any:
-          - key: "{{request.object.spec.parameters.nodes.size}}"
+          - key: "{{request.object.spec.parameters.minNodeCount}}"
             operator: Equals
             value: "large"
