@@ -28,6 +28,6 @@ spec:
       deny:
         conditions:
           any:
-          - key: "{{request.object.spec.parameters.minNodeCount}}"
+          - key: "{{request.object.spec.parameters.nodeSize}}"
             operator: Equals
             value: "large"
