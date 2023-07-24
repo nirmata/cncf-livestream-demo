@@ -1,0 +1,21 @@
+metadata:
+  annotations:
+    crossplane.io/external-name: "crossplane-example-repl-dest"
+  name: "repl-test"
+apiVersion: "s3.aws.crossplane.io/v1beta1"
+kind: "Bucket"
+spec:
+  providerConfigRef:
+    name: "awsconfig"
+  forProvider:
+    locationConstraint: "ap-southeast-1"
+    serverSideEncryptionConfiguration:
+      rules:
+      - applyServerSideEncryptionByDefault:
+          sseAlgorithm: "AES256"
+    versioningConfiguration:
+      status: "Enabled"
+    paymentConfiguration:
+      payer: "BucketOwner"
+    acl: "private"
+  deletionPolicy: "Delete"
