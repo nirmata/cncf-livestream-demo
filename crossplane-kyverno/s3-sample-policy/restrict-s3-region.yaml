@@ -1,0 +1,24 @@
+apiVersion: "kyverno.io/v1"
+kind: "ClusterPolicy"
+metadata:
+  annotations:
+    policies.kyverno.io/description: "Allow creating S3 bucket in ap-southeast-1 only"
+    pod-policies.kyverno.io/autogen-controllers: "none"
+    policies.kyverno.io/subject: "Bucket"
+    policies.kyverno.io/title: "Allow creating S3 bucket in ap-southeast-1 only"
+  name: "allow-s3-ap-southeast-1-only"
+spec:
+  validationFailureAction: "enforce"
+  background: true
+  rules:
+  - name: "s3-in-ap-southeast-1-only"
+    match:
+      resources:
+        kinds:
+        - "Bucket"
+    validate:
+      pattern:
+        spec:
+          forProvider:
+            locationConstraint: "ap-southeast-1"
+      message: "Using any location other than `ap-southeast-1` is not allowed"
